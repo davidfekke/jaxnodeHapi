@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/davidfekke/jaxnodeHapi",
   "dependencies": {
-    "hapi": "^6.0.2"
+    "hapi": "^6.0.2",
+    "joi": "^4.6.1"
   }
 }
