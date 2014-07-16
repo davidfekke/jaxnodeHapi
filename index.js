@@ -1,6 +1,14 @@
 var Hapi = require('hapi'),
 	Joi = require('joi');
-var server = new Hapi.Server(3000);
+
+var config = {
+    views: {
+        engines: { hbs: require('handlebars') },
+        path: __dirname + '/templates'
+    }
+};
+
+var server = new Hapi.Server('localhost', 3000, config);
 
 var routes = [
 	{
@@ -23,6 +31,18 @@ var routes = [
 	            }
 	        }
 	    }
+	},
+	{
+		method: 'GET',
+		path: '/index',
+		handler: function (request, reply) {
+			var context = {
+				title: 'Views Example',
+				message: 'Hello, World'
+			};
+
+			reply.view('index', context);
+		}
 	}
 ];
 
