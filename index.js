@@ -4,7 +4,9 @@ var Hapi = require('hapi'),
 var config = {
     views: {
         engines: { hbs: require('handlebars') },
-        path: __dirname + '/templates'
+        basePath: __dirname,
+		path: './templates',
+		layoutPath: './templates/layout'
     }
 };
 
@@ -40,8 +42,16 @@ var routes = [
 				title: 'Views Example',
 				message: 'Hello, World'
 			};
-
-			reply.view('index', context);
+			reply.view('index', context, { layout: 'layout' });
+		}
+	},
+	{
+		method: 'GET',
+		path: '/{param*}',
+		handler: {
+			directory: {
+				path: 'public'
+			}
 		}
 	}
 ];
