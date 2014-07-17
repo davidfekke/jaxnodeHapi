@@ -1,6 +1,10 @@
+// David Fekke, 2014 Hapi example
+
+//Include required objects
 var Hapi = require('hapi'),
 	Joi = require('joi');
 
+//Set up your configuration
 var config = {
     views: {
         engines: { hbs: require('handlebars') },
@@ -10,8 +14,10 @@ var config = {
     }
 };
 
+//Create your server object
 var server = new Hapi.Server('localhost', 3000, config);
 
+//A test list for mobile services
 var myList = [
 	{ _id: 1, name: 'Bob' },
 	{ _id: 2, name: 'Tom' },
@@ -30,6 +36,7 @@ var myList = [
 	return 0;
 });
 
+//Use this function as an example of how to use Server methods for your handler
 function listGetById(aList, id, next) {
 	for (var key in aList) {
         var curItem = aList[key];
@@ -41,8 +48,10 @@ function listGetById(aList, id, next) {
     next(null, { _id:-1, name: 'unknown'} );
 }
 
+//Adding server method for returning object from array
 server.method({ name: 'listGetById', fn: listGetById });
 
+//Routes array. This is a good example of how you can write your routes as a configuration
 var routes = [
 	{
 	    method: 'GET',
@@ -103,8 +112,10 @@ var routes = [
 	}
 ];
 
+//Adding your routes array to the server object
 server.route(routes);
 
+//Starting your server
 server.start(function () {
     console.log('Server running at:', server.info.uri);
 });
