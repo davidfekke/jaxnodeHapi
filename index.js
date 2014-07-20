@@ -12,6 +12,12 @@ var config = {
 
 var server = new Hapi.Server('localhost', 3000, config);
 
+var io = require('socket.io')(server.listener);
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+});
+
 var routes = [
 	{
 	    method: 'GET',
